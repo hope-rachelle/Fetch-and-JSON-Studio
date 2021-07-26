@@ -1,11 +1,9 @@
-window.addEventListener("load", function(){
-    fetch("https://handlers.education.launchcode.org/static/astronauts.json").then(function(response) {
-        response.json().then(function(json) {    
+ function handleResponseData(json){    
     //console.log(response.json());
     let count = document.getElementById("count");
     count.innerHTML = `There are ${Number(json.length)} astronauts on this mission.`
     let astronauts = document.getElementById("container");
-    
+    //let activeStatus = document.getElementById("active");
     for(let i = 0; i<json.length; i++) { 
     astronauts.innerHTML+=
     `<div class="astronaut" id="list">
@@ -19,14 +17,14 @@ window.addEventListener("load", function(){
          </div>
         <img class="avatar" src=${json[i].picture}>
     </div>`;
-    }//set html for loop 
-    let activeStatus = document.getElementById("active");
-    for(let i = 0; i<json.length; i++){
-    if(json[i].active === "true"){
-        activeStatus.style.color = "green";   
-    }}
-        });//json response
-    });//fetch then response
-});//initialize fetch 
+    }
+        //if(json[i].active === true){
+        //activeStatus.style.color = "green";
+        //}
+    
+    }; 
 
-                
+window.addEventListener("load", function(){
+    fetch("https://handlers.education.launchcode.org/static/astronauts.json")
+    .then(function(response) {
+        response.json().then(handleResponseData)})});              
